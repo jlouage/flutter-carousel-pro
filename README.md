@@ -1,4 +1,4 @@
-# Carousel Pro
+# Carousel Pro [![pub package](https://img.shields.io/pub/v/carousel_pro.svg)](https://pub.dartlang.org/packages/carousel_pro)
 
 A Flutter Carousel widget.
 
@@ -6,7 +6,7 @@ A Flutter Carousel widget.
 
 As simple as using any flutter Widget.
 
-<b>Example:</b>
+**Example:**
 Add the module to your project ``pubspec.yaml``:
 ```yaml
 ...
@@ -33,121 +33,233 @@ new SizedBox(
 ),
 
 ```
+![ScreenShot 01](/path/to/screenshot01.png "ScreenShot 01")
+
+```dart
+import 'package:carousel_pro/carousel_pro.dart';
+
+//...
+new SizedBox(
+  height: 200.0,
+  width: 350.0,
+  child: new Carousel(
+    images: [
+      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+      new ExactAssetImage("assets/images/LaunchImage.jpg")
+    ],
+    dotSize: 4.0,
+    dotSpacing: 15.0,
+    dotColor: Colors.lightGreenAccent,
+    indicatorBgPadding: 5.0,
+    dotBgColor: Colors.purple.withOpacity(0.5),
+    borderRadius: true,
+  )
+),
+
+```
+![ScreenShot 02](/path/to/screenshot02.png "ScreenShot 02")
+
+
+```dart
+import 'package:carousel_pro/carousel_pro.dart';
+
+//...
+new SizedBox(
+    height: 200.0,
+    width: 350.0,
+    child: new Carousel(
+      images: [
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        new ExactAssetImage("assets/images/LaunchImage.jpg")
+      ],
+      dotSize: 4.0,
+      dotSpacing: 15.0,
+      dotColor: Colors.lightGreenAccent,
+      indicatorBgPadding: 5.0,
+      dotBgColor: Colors.purple.withOpacity(0.5),
+      borderRadius: true,
+      moveIndicatorFromBottom: 180.0,
+      noRadiusForIndicator: true,
+    )
+),
+
+```
+![ScreenShot 03](/path/to/screenshot03.png "ScreenShot 03")
+
+
+```dart
+import 'package:carousel_pro/carousel_pro.dart';
+
+//...
+new SizedBox(
+    height: 200.0,
+    width: 350.0,
+    child: new Carousel(
+      images: [
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        new ExactAssetImage("assets/images/LaunchImage.jpg")
+      ],
+      dotSize: 4.0,
+      dotSpacing: 15.0,
+      dotColor: Colors.lightGreenAccent,
+      indicatorBgPadding: 5.0,
+      dotBgColor: Colors.purple.withOpacity(0.5),
+      borderRadius: false,
+      moveIndicatorFromBottom: 180.0,
+      noRadiusForIndicator: true,
+      overlayShadow: true,
+      overlayShadowColors: Colors.white,
+      overlayShadowSize: 0.7,
+    )
+),
+
+```
+![ScreenShot 04](/path/to/screenshot04.png "ScreenShot 04")
+
+
+```dart
+import 'package:carousel_pro/carousel_pro.dart';
+
+//...
+new SizedBox(
+    height: 200.0,
+    width: 350.0,
+    child: new Carousel(
+      images: [
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        new ExactAssetImage("assets/images/LaunchImage.jpg")
+      ],
+      showIndicator: false,
+      borderRadius: false,
+      moveIndicatorFromBottom: 180.0,
+      noRadiusForIndicator: true,
+      overlayShadow: true,
+      overlayShadowColors: Colors.white,
+      overlayShadowSize: 0.7,
+    )
+),
+
+```
+![ScreenShot 05](/path/to/screenshot05.png "ScreenShot 05")
 
 ## Parameters and Values
 
-<h3>images</h3>
+### images
 All the images on this Carousel.
-<br/><b>Type:</b> List
+**Type:** List
 
-<h3>animationCurve</h3>
+### animationCurve
 The transition animation timing curve
-<br /><b>Default value:</b> Curves.ease
-<br/><b>Type:</b> Curve
-<h5>Values</h5>
-Curves.linear;
-<br/>Curves.fastOutSlowIn;
-<br/>Curves.ease;
-<br/>Curves.bounceOut;
-<br/>Curves.bounceIn;
-<br/>Curves.bounceInOut;
-<br/>Curves.decelerate;
-<br/>Curves.ease;
-<br/>Curves.easeIn;
-<br/>Curves.easeInOut;
-<br/>Curves.easeOut;
-<br/>Curves.elasticIn;
-<br/>Curves.elasticInOut;
-<br/>Curves.elasticOut;
+**Default value:** Curves.ease
+**Type:** Curve
+##### Values
+* Curves.linear;
+* Curves.fastOutSlowIn;
+* Curves.ease;
+* Curves.bounceOut;
+* Curves.bounceIn;
+* Curves.bounceInOut;
+* Curves.decelerate;
+* Curves.ease;
+* Curves.easeIn;
+* Curves.easeInOut;
+* Curves.easeOut;
+* Curves.elasticIn;
+* Curves.elasticInOut;
+* Curves.elasticOut;
 
-<h3>animationDuration</h3>
+### animationDuration
 The transition animation duration
-<br /><b>Type:</b> Duration 
-<br /><b>Default value:</b> 300ms.
+**Type:** Duration 
+**Default value:** 300ms.
 
-<h3>dotSize</h3>
+### dotSize
 The base size of the dots
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 8.0
+**Type:** double
+**Default value:** 8.0
 
-<h3>dotIncreaseSize</h3>
+### dotIncreaseSize
 The increase in the size of the selected dot
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 2.0
+**Type:** double
+**Default value:** 2.0
 
 
-<h3>dotSpacing</h3>
+### dotSpacing
 The distance between the center of each dot
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 25.0
+**Type:** double
+**Default value:** 25.0
 
-<h3>dotColor</h3>
+### dotColor
 The Color of each dot
-<br /><b>Type:</b> Color
-<br /><b>Default value:</b> Colors.white
+**Type:** Color
+**Default value:** Colors.white
 
-<h3>dotBgColor</h3>
+### dotBgColor
 The background Color of the dots
-<br /><b>Type:</b> Color
-<br /><b>Default value:</b> Colors.grey[800].withOpacity(0.5)
+**Type:** Color
+**Default value:** Colors.grey[800].withOpacity(0.5)
 
-<h3>showIndicator</h3>
+### showIndicator
 Enable or Disable the indicator (dots)
-<br /><b>Type:</b> bool
-<br /><b>Default value:</b> true
+**Type:** bool
+**Default value:** true
 
-<h3>indicatorBgPadding</h3>
+### indicatorBgPadding
 Padding Size of the background Indicator
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 20.0
+**Type:** double
+**Default value:** 20.0
 
-<h3>boxFit</h3>
+### boxFit
 How to show the images in the box
-<br /><b>Type:</b> BoxFit
-<br /><b>Default value:</b> cover
-<h5>Values</h5>
-BoxFit.cover;
-<br />BoxFit.fitWidth;
-<br />BoxFit.fitHeight;
-<br />BoxFit.scaleDown;
-<br />BoxFit.fill;
-<br />BoxFit.contain;
-<br />BoxFit.none;
+**Type:** BoxFit
+**Default value:** cover
+##### Values
+* BoxFit.cover;
+* BoxFit.fitWidth;
+* BoxFit.fitHeight;
+* BoxFit.scaleDown;
+* BoxFit.fill;
+* BoxFit.contain;
+* BoxFit.none;
 
-<h3>borderRadius</h3>
+### borderRadius
 Enable/Disable radius Border for the images
-<br /><b>Type:</b> bool
-<br /><b>Default value:</b> false
+**Type:** bool
+**Default value:** false
 
-<h3>radius</h3>
+### radius
 Border Radius of the images
-<br /><b>Type:</b> Radius
-<br /><b>Default value:</b> Radius.circular(8.0)
+**Type:** Radius
+**Default value:** Radius.circular(8.0)
 
-<h3>moveIndicatorFromBottom</h3>
+### moveIndicatorFromBottom
 Move the Indicator From the Bottom
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 0.0
+**Type:** double
+**Default value:** 0.0
 
-<h3>noRadiusForIndicator</h3>
+### noRadiusForIndicator
 Remove the radius bottom from the indicator background
-<br /><b>Type:</b> bool
-<br /><b>Default value:</b> false
+**Type:** bool
+**Default value:** false
 
-<h3>overlayShadow</h3>
+### overlayShadow
 Enable/Disable Image Overlay Shadow
-<br /><b>Type:</b> bool
-<br /><b>Default value:</b> false
+**Type:** bool
+**Default value:** false
 
-<h3>overlayShadowColors</h3>
+### overlayShadowColors
 Choose the color of the overlay Shadow color
-<br /><b>Type:</b> Color
-<br /><b>Default value:</b> Colors.grey[800]
+**Type:** Color
+**Default value:** Colors.grey[800]
 
-<h3>overlayShadowSize</h3>
+### overlayShadowSize
 Choose the size of the Overlay Shadow, from 0.0 to 1.0
-<br /><b>Type:</b> double
-<br /><b>Default value:</b> 0.5
+**Type:** double
+**Default value:** 0.5
   
 ## Credits
 
