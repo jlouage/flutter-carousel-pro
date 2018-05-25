@@ -33,7 +33,7 @@ new SizedBox(
 ),
 
 ```
-![ScreenShot 01](/path/to/screenshot01.png "ScreenShot 01")
+![ScreenShot 01](https://github.com/jlouage/flutter-carousel-pro/blob/master/screenshots/screenshot01.png?raw=true "ScreenShot 01")
 
 ```dart
 import 'package:carousel_pro/carousel_pro.dart';
@@ -58,7 +58,7 @@ new SizedBox(
 ),
 
 ```
-![ScreenShot 02](/path/to/screenshot02.png "ScreenShot 02")
+![ScreenShot 02](https://github.com/jlouage/flutter-carousel-pro/blob/master/screenshots/screenshot02.png?raw=true "ScreenShot 02")
 
 
 ```dart
@@ -86,7 +86,7 @@ new SizedBox(
 ),
 
 ```
-![ScreenShot 03](/path/to/screenshot03.png "ScreenShot 03")
+![ScreenShot 03](https://github.com/jlouage/flutter-carousel-pro/blob/master/screenshots/screenshot03.png?raw=true "ScreenShot 03")
 
 
 ```dart
@@ -117,7 +117,7 @@ new SizedBox(
 ),
 
 ```
-![ScreenShot 04](/path/to/screenshot04.png "ScreenShot 04")
+![ScreenShot 04](https://github.com/jlouage/flutter-carousel-pro/blob/master/screenshots/screenshot04.png?raw=true "ScreenShot 04")
 
 
 ```dart
@@ -144,7 +144,7 @@ new SizedBox(
 ),
 
 ```
-![ScreenShot 05](/path/to/screenshot05.png "ScreenShot 05")
+![ScreenShot 05](https://github.com/jlouage/flutter-carousel-pro/blob/master/screenshots/screenshot05.png?raw=true "ScreenShot 05")
 
 ## Parameters and Values
 
