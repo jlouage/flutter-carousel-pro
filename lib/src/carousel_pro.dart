@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Carousel extends StatefulWidget {
   //All the images on this Carousel.
@@ -55,6 +56,10 @@ class Carousel extends StatefulWidget {
 
   //Choose the size of the Overlay Shadow, from 0.0 to 1.0. Default 0.5
   final double overlayShadowSize;
+  
+  final bool autoplay;
+  
+  final Duration autoplayDuration;
 
   Carousel({
     this.images,
@@ -74,7 +79,9 @@ class Carousel extends StatefulWidget {
     this.noRadiusForIndicator = false,
     this.overlayShadow = false,
     this.overlayShadowColors,
-    this.overlayShadowSize = 0.5
+    this.overlayShadowSize = 0.5,
+    this.autoplay = true,
+    this.autoplayDuration = const Duration(seconds: 3)
   }) :
         assert(images != null),
         assert(animationCurve != null),
@@ -91,6 +98,30 @@ class Carousel extends StatefulWidget {
 class CarouselState extends State<Carousel> {
 
   final _controller = new PageController();
+  
+  @override
+  void initState() {
+    super.initState();
+    
+    if(widget.autoplay) {
+      new Timer.periodic(widget.autoplayDuration, (_) {
+        if(_controller.page == widget.images.length-1) {
+          _controller.animateToPage(
+            0,
+            duration: widget.animationDuration,
+            curve: widget.animationCurve,
+          );
+        } else {
+          _controller.nextPage(duration: widget.animationDuration, curve: widget.animationCurve);
+        }
+      });
+    }
+  }
+  
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
