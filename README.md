@@ -260,6 +260,16 @@ Choose the color of the overlay Shadow color
 Choose the size of the Overlay Shadow, from 0.0 to 1.0
 **Type:** double
 **Default value:** 0.5
+
+### autoplay
+Enable/Disable autoplay carousel
+**Type:** bool
+**Default value:** true
+
+### autoplayDuration
+The autoplay transition duration
+**Type:** Duration 
+**Default value:** 3s
   
 ## Credits
 
