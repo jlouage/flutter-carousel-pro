@@ -56,9 +56,11 @@ class Carousel extends StatefulWidget {
 
   //Choose the size of the Overlay Shadow, from 0.0 to 1.0. Default 0.5
   final double overlayShadowSize;
-  
+
+  //Enable/Disable the auto play of the slider
   final bool autoplay;
-  
+
+  //Duration of the Auto play slider by seconds. Default 3 seconds
   final Duration autoplayDuration;
 
   Carousel({

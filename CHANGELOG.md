@@ -1,3 +1,7 @@
+## [0.0.12]
+
+* Animation added
+
 ## [0.0.11]
 
 * Screenshot added
