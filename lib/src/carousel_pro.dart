@@ -63,28 +63,29 @@ class Carousel extends StatefulWidget {
   //Duration of the Auto play slider by seconds. Default 3 seconds
   final Duration autoplayDuration;
 
-  Carousel(
-      {this.images,
-      this.animationCurve = Curves.ease,
-      this.animationDuration = const Duration(milliseconds: 300),
-      this.dotSize = 8.0,
-      this.dotSpacing = 25.0,
-      this.dotIncreaseSize = 2.0,
-      this.dotColor = Colors.white,
-      this.dotBgColor,
-      this.showIndicator = true,
-      this.indicatorBgPadding = 20.0,
-      this.boxFit = BoxFit.cover,
-      this.borderRadius = false,
-      this.radius,
-      this.moveIndicatorFromBottom = 0.0,
-      this.noRadiusForIndicator = false,
-      this.overlayShadow = false,
-      this.overlayShadowColors,
-      this.overlayShadowSize = 0.5,
-      this.autoplay = true,
-      this.autoplayDuration = const Duration(seconds: 3)})
-      : assert(images != null),
+  Carousel({
+    this.images,
+    this.animationCurve = Curves.ease,
+    this.animationDuration = const Duration(milliseconds: 300),
+    this.dotSize = 8.0,
+    this.dotSpacing = 25.0,
+    this.dotIncreaseSize = 2.0,
+    this.dotColor = Colors.white,
+    this.dotBgColor,
+    this.showIndicator = true,
+    this.indicatorBgPadding = 20.0,
+    this.boxFit = BoxFit.cover,
+    this.borderRadius = false,
+    this.radius,
+    this.moveIndicatorFromBottom = 0.0,
+    this.noRadiusForIndicator = false,
+    this.overlayShadow = false,
+    this.overlayShadowColors,
+    this.overlayShadowSize = 0.5,
+    this.autoplay = true,
+    this.autoplayDuration = const Duration(seconds: 3)
+  }) :
+        assert(images != null),
         assert(animationCurve != null),
         assert(animationDuration != null),
         assert(dotSize != null),
@@ -97,28 +98,28 @@ class Carousel extends StatefulWidget {
 }
 
 class CarouselState extends State<Carousel> {
-  final _controller = new PageController();
 
+  final _controller = new PageController();
+  
   @override
   void initState() {
     super.initState();
-
-    if (widget.autoplay) {
+    
+    if(widget.autoplay) {
       new Timer.periodic(widget.autoplayDuration, (_) {
-        if (_controller.page.toInt() == widget.images.length - 1) {
+        if(_controller.page.toInt() == widget.images.length-1) {
           _controller.animateToPage(
             0,
             duration: widget.animationDuration,
             curve: widget.animationCurve,
           );
         } else {
-          _controller.nextPage(
-              duration: widget.animationDuration, curve: widget.animationCurve);
+          _controller.nextPage(duration: widget.animationDuration, curve: widget.animationCurve);
         }
       });
     }
   }
-
+  
   @override
   void dispose() {
     super.dispose();
@@ -126,44 +127,40 @@ class CarouselState extends State<Carousel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listImages = widget.images
-        .map((netImage) => new Container(
-              decoration: new BoxDecoration(
-                  borderRadius: widget.borderRadius
-                      ? new BorderRadius.all(widget.radius != null
-                          ? widget.radius
-                          : new Radius.circular(8.0))
-                      : null,
-                  image: new DecorationImage(
-                    //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                    image: netImage,
-                    fit: widget.boxFit,
-                  )),
-              child: widget.overlayShadow
-                  ? new Container(
-                      decoration: new BoxDecoration(
-                        gradient: new LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.center,
-                          stops: [0.0, widget.overlayShadowSize],
-                          colors: [
-                            widget.overlayShadowColors != null
-                                ? widget.overlayShadowColors.withOpacity(1.0)
-                                : Colors.grey[800].withOpacity(1.0),
-                            widget.overlayShadowColors != null
-                                ? widget.overlayShadowColors.withOpacity(0.0)
-                                : Colors.grey[800].withOpacity(0.0)
-                          ],
-                        ),
-                      ),
-                    )
-                  : new Container(),
-            ))
-        .toList();
+    final List<Widget> listImages = widget.images.map(
+            (netImage) =>
+        new Container(
+          decoration: new BoxDecoration(
+              borderRadius: widget.borderRadius ? new BorderRadius.all(
+                  widget.radius != null ? widget.radius : new Radius.circular(8.0)
+              ) : null,
+              image: new DecorationImage(
+                //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                image: netImage,
+                fit: widget.boxFit,
+              )
+          ),
+          child: widget.overlayShadow ? new Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.center,
+                stops: [0.0, widget.overlayShadowSize],
+                colors: [
+                  widget.overlayShadowColors != null ? widget.overlayShadowColors.withOpacity(1.0) : Colors.grey[800].withOpacity(1.0),
+                  widget.overlayShadowColors != null ? widget.overlayShadowColors.withOpacity(0.0) : Colors.grey[800].withOpacity(0.0)
+                ],
+              ),
+            ),
+          ) : new Container(),
+        )
+    ).toList();
+
 
     return new Scaffold(
       body: new Stack(
         children: <Widget>[
+
           new Container(
             child: new PageView(
               physics: new AlwaysScrollableScrollPhysics(),
@@ -171,49 +168,40 @@ class CarouselState extends State<Carousel> {
               children: listImages,
             ),
           ),
-          widget.showIndicator
-              ? new Positioned(
-                  bottom: widget.moveIndicatorFromBottom,
-                  left: 0.0,
-                  right: 0.0,
-                  child: new Container(
-                    decoration: new BoxDecoration(
-                      color: widget.dotBgColor == null
-                          ? Colors.grey[800].withOpacity(0.5)
-                          : widget.dotBgColor,
-                      borderRadius: widget.borderRadius
-                          ? (widget.noRadiusForIndicator
-                              ? null
-                              : new BorderRadius.only(
-                                  bottomLeft: widget.radius != null
-                                      ? widget.radius
-                                      : new Radius.circular(8.0),
-                                  bottomRight: widget.radius != null
-                                      ? widget.radius
-                                      : new Radius.circular(8.0)))
-                          : null,
-                    ),
-                    padding: new EdgeInsets.all(widget.indicatorBgPadding),
-                    child: new Center(
-                      child: new DotsIndicator(
-                        controller: _controller,
-                        itemCount: listImages.length,
-                        color: widget.dotColor,
-                        dotSize: widget.dotSize,
-                        dotSpacing: widget.dotSpacing,
-                        dotIncreaseSize: widget.dotIncreaseSize,
-                        onPageSelected: (int page) {
-                          _controller.animateToPage(
-                            page,
-                            duration: widget.animationDuration,
-                            curve: widget.animationCurve,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                )
-              : new Container(),
+
+          widget.showIndicator ? new Positioned(
+            bottom: widget.moveIndicatorFromBottom,
+            left: 0.0,
+            right: 0.0,
+            child: new Container(
+              decoration: new BoxDecoration(
+                color: widget.dotBgColor == null ? Colors.grey[800].withOpacity(0.5) : widget.dotBgColor,
+                borderRadius: widget.borderRadius ? (widget.noRadiusForIndicator ? null : new BorderRadius.only(
+                    bottomLeft: widget.radius != null ? widget.radius : new Radius.circular(8.0),
+                    bottomRight: widget.radius != null ? widget.radius : new Radius.circular(8.0)
+                )) : null,
+              ),
+              padding: new EdgeInsets.all(widget.indicatorBgPadding),
+              child: new Center(
+                child: new DotsIndicator(
+                  controller: _controller,
+                  itemCount: listImages.length,
+                  color: widget.dotColor,
+                  dotSize: widget.dotSize,
+                  dotSpacing: widget.dotSpacing,
+                  dotIncreaseSize: widget.dotIncreaseSize,
+                  onPageSelected: (int page) {
+                    _controller.animateToPage(
+                      page,
+                      duration: widget.animationDuration,
+                      curve: widget.animationCurve,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ) : new Container(),
+
         ],
       ),
     );
@@ -222,15 +210,15 @@ class CarouselState extends State<Carousel> {
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
-  DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
-      this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
-      this.dotSpacing})
-      : super(listenable: controller);
+  DotsIndicator({
+    this.controller,
+    this.itemCount,
+    this.onPageSelected,
+    this.color,
+    this.dotSize,
+    this.dotIncreaseSize,
+    this.dotSpacing
+  }) : super(listenable: controller);
 
   // The PageController that this DotsIndicator is representing.
   final PageController controller;
