@@ -104,7 +104,13 @@ class CarouselState extends State<Carousel> {
   @override
   void initState() {
     super.initState();
-    
+
+    //add a callback to a function, called as soon as first frame is built
+    WidgetsBinding.instance.addPostFrameCallback((callback)=>_afterBuild());
+  }
+
+  /// call back to make sure that this is initialized after all the build has finished
+  void _afterBuild(){    
     if(widget.autoplay) {
       new Timer.periodic(widget.autoplayDuration, (_) {
         if(_controller.page.toInt() == widget.images.length-1) {
