@@ -107,7 +107,7 @@ class CarouselState extends State<Carousel> {
     
     if(widget.autoplay) {
       new Timer.periodic(widget.autoplayDuration, (_) {
-        if(_controller.page == widget.images.length-1) {
+        if(_controller.page.toInt() == widget.images.length-1) {
           _controller.animateToPage(
             0,
             duration: widget.animationDuration,
