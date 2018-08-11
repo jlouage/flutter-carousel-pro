@@ -100,13 +100,13 @@ class Carousel extends StatefulWidget {
 class CarouselState extends State<Carousel> {
 
   final _controller = new PageController();
-  
+  Timer timer;
   @override
   void initState() {
     super.initState();
     
     if(widget.autoplay) {
-      new Timer.periodic(widget.autoplayDuration, (_) {
+    timer=  new Timer.periodic(widget.autoplayDuration, (_) {
         if(_controller.page == widget.images.length-1) {
           _controller.animateToPage(
             0,
@@ -122,6 +122,8 @@ class CarouselState extends State<Carousel> {
   
   @override
   void dispose() {
+    _controller.dispose();
+    timer?.cancel();
     super.dispose();
   }
 
