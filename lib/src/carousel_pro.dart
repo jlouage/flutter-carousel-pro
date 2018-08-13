@@ -105,16 +105,20 @@ class CarouselState extends State<Carousel> {
   void initState() {
     super.initState();
     
-    if(widget.autoplay) {
+   if (widget.autoplay) {
       new Timer.periodic(widget.autoplayDuration, (_) {
-        if(_controller.page.round() == widget.images.length-1) {
-          _controller.animateToPage(
-            0,
-            duration: widget.animationDuration,
-            curve: widget.animationCurve,
-          );
-        } else {
-          _controller.nextPage(duration: widget.animationDuration, curve: widget.animationCurve);
+        if (_controller.hasClients) {
+          if (_controller.page.round() == widget.images.length - 1) {
+            _controller.animateToPage(
+              0,
+              duration: widget.animationDuration,
+              curve: widget.animationCurve,
+            );
+          } else {
+            _controller.nextPage(
+                duration: widget.animationDuration,
+                curve: widget.animationCurve);
+          }
         }
       });
     }
