@@ -132,61 +132,59 @@ class WidgetCarouselState extends State<WidgetCarousel> {
             ))
         .toList();
 
-    return new Scaffold(
-      body: new Stack(
-        children: <Widget>[
-          new Container(
-            child: new PageView(
-              physics: new AlwaysScrollableScrollPhysics(),
-              controller: _controller,
-              children: listPages,
-            ),
+    return new Stack(
+      children: <Widget>[
+        new Container(
+          child: new PageView(
+            physics: new AlwaysScrollableScrollPhysics(),
+            controller: _controller,
+            children: listPages,
           ),
-          widget.showIndicator
-              ? new Positioned(
-                  bottom: widget.moveIndicatorFromBottom,
-                  left: 0.0,
-                  right: 0.0,
-                  child: new Container(
-                    decoration: new BoxDecoration(
-                      color: widget.dotBgColor == null
-                          ? Colors.grey[800].withOpacity(0.5)
-                          : widget.dotBgColor,
-                      borderRadius: widget.borderRadius
-                          ? (widget.noRadiusForIndicator
-                              ? null
-                              : new BorderRadius.only(
-                                  bottomLeft: widget.radius != null
-                                      ? widget.radius
-                                      : new Radius.circular(8.0),
-                                  bottomRight: widget.radius != null
-                                      ? widget.radius
-                                      : new Radius.circular(8.0)))
-                          : null,
-                    ),
-                    padding: new EdgeInsets.all(widget.indicatorBgPadding),
-                    child: new Center(
-                      child: new DotsIndicator(
-                        controller: _controller,
-                        itemCount: listPages.length,
-                        color: widget.dotColor,
-                        dotSize: widget.dotSize,
-                        dotSpacing: widget.dotSpacing,
-                        dotIncreaseSize: widget.dotIncreaseSize,
-                        onPageSelected: (int page) {
-                          _controller.animateToPage(
-                            page,
-                            duration: widget.animationDuration,
-                            curve: widget.animationCurve,
-                          );
-                        },
-                      ),
+        ),
+        widget.showIndicator
+            ? new Positioned(
+                bottom: widget.moveIndicatorFromBottom,
+                left: 0.0,
+                right: 0.0,
+                child: new Container(
+                  decoration: new BoxDecoration(
+                    color: widget.dotBgColor == null
+                        ? Colors.grey[800].withOpacity(0.5)
+                        : widget.dotBgColor,
+                    borderRadius: widget.borderRadius
+                        ? (widget.noRadiusForIndicator
+                            ? null
+                            : new BorderRadius.only(
+                                bottomLeft: widget.radius != null
+                                    ? widget.radius
+                                    : new Radius.circular(8.0),
+                                bottomRight: widget.radius != null
+                                    ? widget.radius
+                                    : new Radius.circular(8.0)))
+                        : null,
+                  ),
+                  padding: new EdgeInsets.all(widget.indicatorBgPadding),
+                  child: new Center(
+                    child: new DotsIndicator(
+                      controller: _controller,
+                      itemCount: listPages.length,
+                      color: widget.dotColor,
+                      dotSize: widget.dotSize,
+                      dotSpacing: widget.dotSpacing,
+                      dotIncreaseSize: widget.dotIncreaseSize,
+                      onPageSelected: (int page) {
+                        _controller.animateToPage(
+                          page,
+                          duration: widget.animationDuration,
+                          curve: widget.animationCurve,
+                        );
+                      },
                     ),
                   ),
-                )
-              : new Container(),
-        ],
-      ),
+                ),
+              )
+            : new Container(),
+      ],
     );
   }
 }
