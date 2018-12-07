@@ -63,6 +63,12 @@ class Carousel extends StatefulWidget {
   //Duration of the Auto play slider by seconds. Default 3 seconds
   final Duration autoplayDuration;
 
+  //On image tap event, passes current image index as an argument
+  final void Function(int) onImageTap;
+
+  //On image change event, passes previous image index and current image index as arguments
+  final void Function(int, int) onImageChange;
+
   Carousel(
       {this.images,
       this.animationCurve = Curves.ease,
@@ -83,7 +89,9 @@ class Carousel extends StatefulWidget {
       this.overlayShadowColors,
       this.overlayShadowSize = 0.5,
       this.autoplay = true,
-      this.autoplayDuration = const Duration(seconds: 3)})
+      this.autoplayDuration = const Duration(seconds: 3),
+      this.onImageTap,
+      this.onImageChange})
       : assert(images != null),
         assert(animationCurve != null),
         assert(animationDuration != null),
@@ -97,8 +105,10 @@ class Carousel extends StatefulWidget {
 }
 
 class CarouselState extends State<Carousel> {
-  PageController _controller = new PageController();
   Timer timer;
+  int _currentImageIndex = 0;
+  PageController _controller = new PageController();
+
   @override
   void initState() {
     super.initState();
@@ -112,8 +122,7 @@ class CarouselState extends State<Carousel> {
             curve: widget.animationCurve,
           );
         } else {
-          _controller.nextPage(
-              duration: widget.animationDuration, curve: widget.animationCurve);
+          _controller.nextPage(duration: widget.animationDuration, curve: widget.animationCurve);
         }
       });
     }
@@ -135,16 +144,13 @@ class CarouselState extends State<Carousel> {
           (netImage) => netImage is ImageProvider
               ? new Container(
                   decoration: new BoxDecoration(
-                      borderRadius: widget.borderRadius
-                          ? new BorderRadius.all(widget.radius != null
-                              ? widget.radius
-                              : new Radius.circular(8.0))
-                          : null,
-                      image: new DecorationImage(
-                        //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                        image: netImage,
-                        fit: widget.boxFit,
-                      )),
+                    borderRadius: widget.borderRadius ? new BorderRadius.all(widget.radius != null ? widget.radius : new Radius.circular(8.0)) : null,
+                    image: new DecorationImage(
+                      //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                      image: netImage,
+                      fit: widget.boxFit,
+                    ),
+                  ),
                   child: widget.overlayShadow
                       ? new Container(
                           decoration: new BoxDecoration(
@@ -152,16 +158,7 @@ class CarouselState extends State<Carousel> {
                               begin: Alignment.bottomCenter,
                               end: Alignment.center,
                               stops: [0.0, widget.overlayShadowSize],
-                              colors: [
-                                widget.overlayShadowColors != null
-                                    ? widget.overlayShadowColors
-                                        .withOpacity(1.0)
-                                    : Colors.grey[800].withOpacity(1.0),
-                                widget.overlayShadowColors != null
-                                    ? widget.overlayShadowColors
-                                        .withOpacity(0.0)
-                                    : Colors.grey[800].withOpacity(0.0)
-                              ],
+                              colors: [widget.overlayShadowColors != null ? widget.overlayShadowColors.withOpacity(1.0) : Colors.grey[800].withOpacity(1.0), widget.overlayShadowColors != null ? widget.overlayShadowColors.withOpacity(0.0) : Colors.grey[800].withOpacity(0.0)],
                             ),
                           ),
                         )
@@ -174,10 +171,30 @@ class CarouselState extends State<Carousel> {
     return new Stack(
       children: <Widget>[
         new Container(
-          child: new PageView(
-            physics: new AlwaysScrollableScrollPhysics(),
-            controller: _controller,
-            children: listImages,
+          child: new Builder(
+            builder: (_) {
+              Widget pageView = new PageView(
+                physics: new AlwaysScrollableScrollPhysics(),
+                controller: _controller,
+                children: listImages,
+                onPageChanged: (currentPage) {
+                  if (widget.onImageChange != null) {
+                    widget.onImageChange(_currentImageIndex, currentPage);
+                  }
+
+                  _currentImageIndex = currentPage;
+                },
+              );
+
+              if (widget.onImageTap == null) {
+                return pageView;
+              }
+
+              return new GestureDetector(
+                child: pageView,
+                onTap: () => widget.onImageTap(_currentImageIndex),
+              );
+            },
           ),
         ),
         widget.showIndicator
@@ -187,20 +204,8 @@ class CarouselState extends State<Carousel> {
                 right: 0.0,
                 child: new Container(
                   decoration: new BoxDecoration(
-                    color: widget.dotBgColor == null
-                        ? Colors.grey[800].withOpacity(0.5)
-                        : widget.dotBgColor,
-                    borderRadius: widget.borderRadius
-                        ? (widget.noRadiusForIndicator
-                            ? null
-                            : new BorderRadius.only(
-                                bottomLeft: widget.radius != null
-                                    ? widget.radius
-                                    : new Radius.circular(8.0),
-                                bottomRight: widget.radius != null
-                                    ? widget.radius
-                                    : new Radius.circular(8.0)))
-                        : null,
+                    color: widget.dotBgColor == null ? Colors.grey[800].withOpacity(0.5) : widget.dotBgColor,
+                    borderRadius: widget.borderRadius ? (widget.noRadiusForIndicator ? null : new BorderRadius.only(bottomLeft: widget.radius != null ? widget.radius : new Radius.circular(8.0), bottomRight: widget.radius != null ? widget.radius : new Radius.circular(8.0))) : null,
                   ),
                   padding: new EdgeInsets.all(widget.indicatorBgPadding),
                   child: new Center(
@@ -230,15 +235,7 @@ class CarouselState extends State<Carousel> {
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
-  DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
-      this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
-      this.dotSpacing})
-      : super(listenable: controller);
+  DotsIndicator({this.controller, this.itemCount, this.onPageSelected, this.color, this.dotSize, this.dotIncreaseSize, this.dotSpacing}) : super(listenable: controller);
 
   // The PageController that this DotsIndicator is representing.
   final PageController controller;
