@@ -265,6 +265,10 @@ class CarouselState extends State<Carousel> {
     final left = [DotPosition.topLeft, DotPosition.bottomLeft].contains(widget.dotPosition) ? widget.dotHorizontalPadding : null;
     final right = [DotPosition.topRight, DotPosition.bottomRight].contains(widget.dotPosition) ? widget.dotHorizontalPadding : null;
 
+    if (left == null && right == null) {
+      left = right = 0.0;
+    }
+
     return new Stack(
       children: <Widget>[
         new Container(
