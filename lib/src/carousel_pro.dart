@@ -3,6 +3,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+enum DotPosition {
+  topLeft,
+  topCenter,
+  topRight,
+  bottomLeft,
+  bottomCenter,
+  bottomRight
+}
+
 class Carousel extends StatefulWidget {
   //All the images on this Carousel.
   final List images;
@@ -31,6 +40,9 @@ class Carousel extends StatefulWidget {
   // The background Color of the dots. Default is [Colors.grey[800].withOpacity(0.5)]
   final Color dotBgColor;
 
+  // The Color of each increased dot. Default is Colors.white
+  final Color dotIncreasedColor;
+
   // Enable or Disable the indicator (dots). Default is true
   final bool showIndicator;
 
@@ -45,6 +57,15 @@ class Carousel extends StatefulWidget {
 
   //Border Radius of the images. Default is [Radius.circular(8.0)]
   final Radius radius;
+
+  //Indicator position. Default bottomCenter
+  final DotPosition dotPosition;
+
+  //Move the Indicator Horizontally relative to the dot position
+  final double dotHorizontalPadding;
+
+  //Move the Indicator Vertically relative to the dot position
+  final double dotVerticalPadding;
 
   //Move the Indicator From the Bottom
   final double moveIndicatorFromBottom;
@@ -82,11 +103,15 @@ class Carousel extends StatefulWidget {
     this.dotIncreaseSize = 2.0,
     this.dotColor = Colors.white,
     this.dotBgColor,
+    this.dotIncreasedColor = Colors.white,
     this.showIndicator = true,
     this.indicatorBgPadding = 20.0,
     this.boxFit = BoxFit.cover,
     this.borderRadius = false,
     this.radius,
+    this.dotPosition = DotPosition.bottomCenter,
+    this.dotHorizontalPadding = 0.0,
+    this.dotVerticalPadding = 0.0,
     this.moveIndicatorFromBottom = 0.0,
     this.noRadiusForIndicator = false,
     this.overlayShadow = false,
@@ -233,6 +258,17 @@ class CarouselState extends State<Carousel> {
                     : widget.defaultImage,
               ];
 
+    final bottom = [DotPosition.bottomLeft, DotPosition.bottomCenter, DotPosition.bottomRight]
+        .contains(widget.dotPosition) ? widget.dotVerticalPadding : null;
+    final top = [DotPosition.topLeft, DotPosition.topCenter, DotPosition.topRight]
+        .contains(widget.dotPosition) ? widget.dotVerticalPadding : null;
+    final left = [DotPosition.topLeft, DotPosition.bottomLeft].contains(widget.dotPosition) ? widget.dotHorizontalPadding : null;
+    final right = [DotPosition.topRight, DotPosition.bottomRight].contains(widget.dotPosition) ? widget.dotHorizontalPadding : null;
+
+    if (left == null && right == null) {
+      left = right = 0.0;
+    }
+
     return new Stack(
       children: <Widget>[
         new Container(
@@ -264,9 +300,10 @@ class CarouselState extends State<Carousel> {
         ),
         widget.showIndicator
             ? new Positioned(
-                bottom: widget.moveIndicatorFromBottom,
-                left: 0.0,
-                right: 0.0,
+                bottom: bottom,
+                top: top,
+                left: left,
+                right: right,
                 child: new Container(
                   decoration: new BoxDecoration(
                     color: widget.dotBgColor == null
@@ -317,6 +354,7 @@ class DotsIndicator extends AnimatedWidget {
       this.itemCount,
       this.onPageSelected,
       this.color,
+      this.increasedColor,
       this.dotSize,
       this.dotIncreaseSize,
       this.dotSpacing})
@@ -333,6 +371,9 @@ class DotsIndicator extends AnimatedWidget {
 
   // The color of the dots.
   final Color color;
+
+  // The color of the increased dot.
+  final Color increasedColor;
 
   // The base size of the dots
   final double dotSize;
@@ -351,11 +392,12 @@ class DotsIndicator extends AnimatedWidget {
       ),
     );
     double zoom = 1.0 + (dotIncreaseSize - 1.0) * selectedness;
+    final dotColor = zoom > 1.0 ? increasedColor : color;
     return new Container(
       width: dotSpacing,
       child: new Center(
         child: new Material(
-          color: color,
+          color: dotColor,
           type: MaterialType.circle,
           child: new Container(
             width: dotSize * zoom,
