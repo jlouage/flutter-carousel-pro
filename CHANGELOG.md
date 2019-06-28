@@ -1,3 +1,7 @@
+## [1.0.0]
+
+* Bug Fixes
+
 ## [0.0.12]
 
 * Animation added
