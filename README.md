@@ -12,7 +12,7 @@ Add the module to your project ``pubspec.yaml``:
 ...
 dependencies:
  ...
- carousel_pro: ^0.0.13
+ carousel_pro: ^1.1.0
 ...
 ```
 And install it using ``flutter packages get`` on your project folder. After that, just import the module and use it:
@@ -20,14 +20,14 @@ And install it using ``flutter packages get`` on your project folder. After that
 import 'package:carousel_pro/carousel_pro.dart';
 
 //...
-new SizedBox(
+SizedBox(
   height: 150.0,
   width: 300.0,
-  child: new Carousel(
+  child: Carousel(
     images: [
-      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-      new ExactAssetImage("assets/images/LaunchImage.jpg")
+      NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+      NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+      ExactAssetImage("assets/images/LaunchImage.jpg")
     ],
   )
 ),
@@ -39,14 +39,14 @@ new SizedBox(
 import 'package:carousel_pro/carousel_pro.dart';
 
 //...
-new SizedBox(
+SizedBox(
   height: 200.0,
   width: 350.0,
-  child: new Carousel(
+  child: Carousel(
     images: [
-      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-      new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-      new ExactAssetImage("assets/images/LaunchImage.jpg")
+      NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+      NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+      ExactAssetImage("assets/images/LaunchImage.jpg")
     ],
     dotSize: 4.0,
     dotSpacing: 15.0,
@@ -65,14 +65,14 @@ new SizedBox(
 import 'package:carousel_pro/carousel_pro.dart';
 
 //...
-new SizedBox(
+SizedBox(
     height: 200.0,
     width: 350.0,
-    child: new Carousel(
+    child: Carousel(
       images: [
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-        new ExactAssetImage("assets/images/LaunchImage.jpg")
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        ExactAssetImage("assets/images/LaunchImage.jpg")
       ],
       dotSize: 4.0,
       dotSpacing: 15.0,
@@ -93,14 +93,14 @@ new SizedBox(
 import 'package:carousel_pro/carousel_pro.dart';
 
 //...
-new SizedBox(
+SizedBox(
     height: 200.0,
     width: 350.0,
-    child: new Carousel(
+    child: Carousel(
       images: [
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-        new ExactAssetImage("assets/images/LaunchImage.jpg")
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        ExactAssetImage("assets/images/LaunchImage.jpg")
       ],
       dotSize: 4.0,
       dotSpacing: 15.0,
@@ -124,14 +124,14 @@ new SizedBox(
 import 'package:carousel_pro/carousel_pro.dart';
 
 //...
-new SizedBox(
+SizedBox(
     height: 200.0,
     width: 350.0,
-    child: new Carousel(
+    child: Carousel(
       images: [
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-        new NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-        new ExactAssetImage("assets/images/LaunchImage.jpg")
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+        NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        ExactAssetImage("assets/images/LaunchImage.jpg")
       ],
       showIndicator: false,
       borderRadius: false,

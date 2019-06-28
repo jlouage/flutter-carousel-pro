@@ -93,18 +93,18 @@ class WidgetCarousel extends StatefulWidget {
         assert(dotColor != null);
 
   @override
-  State createState() => new WidgetCarouselState();
+  State createState() => WidgetCarouselState();
 }
 
 class WidgetCarouselState extends State<WidgetCarousel> {
-  final _controller = new PageController();
+  final _controller = PageController();
 
   @override
   void initState() {
     super.initState();
 
     if (widget.autoplay) {
-      new Timer.periodic(widget.autoplayDuration, (_) {
+      Timer.periodic(widget.autoplayDuration, (_) {
         if (_controller.page == widget.pages.length - 1) {
           _controller.animateToPage(
             0,
@@ -127,45 +127,45 @@ class WidgetCarouselState extends State<WidgetCarousel> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> listPages = widget.pages
-        .map((widget) => new Container(
+        .map((widget) => Container(
               child: widget,
             ))
         .toList();
 
-    return new Stack(
+    return Stack(
       children: <Widget>[
-        new Container(
-          child: new PageView(
-            physics: new AlwaysScrollableScrollPhysics(),
+        Container(
+          child: PageView(
+            physics: AlwaysScrollableScrollPhysics(),
             controller: _controller,
             children: listPages,
           ),
         ),
         widget.showIndicator
-            ? new Positioned(
+            ? Positioned(
                 bottom: widget.moveIndicatorFromBottom,
                 left: 0.0,
                 right: 0.0,
-                child: new Container(
-                  decoration: new BoxDecoration(
+                child: Container(
+                  decoration: BoxDecoration(
                     color: widget.dotBgColor == null
                         ? Colors.grey[800].withOpacity(0.5)
                         : widget.dotBgColor,
                     borderRadius: widget.borderRadius
                         ? (widget.noRadiusForIndicator
                             ? null
-                            : new BorderRadius.only(
+                            : BorderRadius.only(
                                 bottomLeft: widget.radius != null
                                     ? widget.radius
-                                    : new Radius.circular(8.0),
+                                    : Radius.circular(8.0),
                                 bottomRight: widget.radius != null
                                     ? widget.radius
-                                    : new Radius.circular(8.0)))
+                                    : Radius.circular(8.0)))
                         : null,
                   ),
-                  padding: new EdgeInsets.all(widget.indicatorBgPadding),
-                  child: new Center(
-                    child: new DotsIndicator(
+                  padding: EdgeInsets.all(widget.indicatorBgPadding),
+                  child: Center(
+                    child: DotsIndicator(
                       controller: _controller,
                       itemCount: listPages.length,
                       color: widget.dotColor,
@@ -183,7 +183,7 @@ class WidgetCarouselState extends State<WidgetCarousel> {
                   ),
                 ),
               )
-            : new Container(),
+            : Container(),
       ],
     );
   }
@@ -230,16 +230,16 @@ class DotsIndicator extends AnimatedWidget {
       ),
     );
     double zoom = 1.0 + (dotIncreaseSize - 1.0) * selectedness;
-    return new Container(
+    return Container(
       width: dotSpacing,
-      child: new Center(
-        child: new Material(
+      child: Center(
+        child: Material(
           color: color,
           type: MaterialType.circle,
-          child: new Container(
+          child: Container(
             width: dotSize * zoom,
             height: dotSize * zoom,
-            child: new InkWell(
+            child: InkWell(
               onTap: () => onPageSelected(index),
             ),
           ),
@@ -249,9 +249,9 @@ class DotsIndicator extends AnimatedWidget {
   }
 
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: new List<Widget>.generate(itemCount, _buildDot),
+      children: List<Widget>.generate(itemCount, _buildDot),
     );
   }
 }
