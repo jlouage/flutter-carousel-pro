@@ -94,6 +94,9 @@ class Carousel extends StatefulWidget {
   //On image change event, passes previous image index and current image index as arguments
   final void Function(int, int) onImageChange;
 
+  //initial index
+  final int initialIndex;
+
   Carousel({
     this.images,
     this.animationCurve = Curves.ease,
@@ -122,6 +125,7 @@ class Carousel extends StatefulWidget {
     this.onImageTap,
     this.onImageChange,
     this.defaultImage,
+    this.initialIndex = 0,
   });
 
   @override
@@ -130,12 +134,14 @@ class Carousel extends StatefulWidget {
 
 class CarouselState extends State<Carousel> {
   Timer timer;
-  int _currentImageIndex = 0;
-  PageController _controller = PageController();
+  int _currentImageIndex;
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = PageController(initialPage: widget.initialIndex);
+    _currentImageIndex = widget.initialIndex;
 
     if (widget.images != null && widget.images.isNotEmpty) {
       if (widget.autoplay) {
