@@ -96,6 +96,8 @@ class Carousel extends StatefulWidget {
 
   final ScrollPhysics physics;
 
+  final PageController controller;
+
   Carousel({
     this.images,
     this.animationCurve = Curves.ease,
@@ -125,6 +127,7 @@ class Carousel extends StatefulWidget {
     this.onImageChange,
     this.defaultImage,
     this.physics,
+    this.controller,
   });
 
   @override
@@ -134,12 +137,14 @@ class Carousel extends StatefulWidget {
 class CarouselState extends State<Carousel> {
   Timer timer;
   int _currentImageIndex = 0;
-  PageController _controller = PageController();
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
-
+    if (_controller == null) {
+      _controller = widget.controller ?? PageController();
+    }
     if (widget.images != null && widget.images.isNotEmpty) {
       if (widget.autoplay) {
         timer = Timer.periodic(widget.autoplayDuration, (_) {
