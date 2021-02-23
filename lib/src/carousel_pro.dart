@@ -94,6 +94,10 @@ class Carousel extends StatefulWidget {
   //On image change event, passes previous image index and current image index as arguments
   final void Function(int, int) onImageChange;
 
+  final ScrollPhysics physics;
+
+  final PageController controller;
+
   Carousel({
     this.images,
     this.animationCurve = Curves.ease,
@@ -122,6 +126,8 @@ class Carousel extends StatefulWidget {
     this.onImageTap,
     this.onImageChange,
     this.defaultImage,
+    this.physics,
+    this.controller,
   });
 
   @override
@@ -131,12 +137,14 @@ class Carousel extends StatefulWidget {
 class CarouselState extends State<Carousel> {
   Timer timer;
   int _currentImageIndex = 0;
-  PageController _controller = PageController();
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
-
+    if (_controller == null) {
+      _controller = widget.controller ?? PageController();
+    }
     if (widget.images != null && widget.images.isNotEmpty) {
       if (widget.autoplay) {
         timer = Timer.periodic(widget.autoplayDuration, (_) {
@@ -312,7 +320,7 @@ class CarouselState extends State<Carousel> {
           child: Builder(
             builder: (_) {
               Widget pageView = PageView(
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
                 controller: _controller,
                 children: listImages,
                 onPageChanged: (currentPage) {
