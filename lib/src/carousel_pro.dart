@@ -167,8 +167,7 @@ class CarouselState extends State<Carousel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listImages = (widget.images != null &&
-            widget.images.isNotEmpty)
+    final List<Widget> listImages = (widget.images.isNotEmpty)
         ? widget.images.map<Widget>(
             (netImage) {
               if (netImage is ImageProvider) {
@@ -238,9 +237,7 @@ class CarouselState extends State<Carousel> {
                 ? Container(
                     decoration: BoxDecoration(
                       borderRadius: widget.borderRadius
-                          ? BorderRadius.all(widget.radius != null
-                              ? widget.radius
-                              : Radius.circular(8.0))
+                          ? BorderRadius.all(widget.radius)
                           : null,
                       image: DecorationImage(
                         //colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
@@ -344,12 +341,8 @@ class CarouselState extends State<Carousel> {
                         ? (widget.noRadiusForIndicator
                             ? null
                             : BorderRadius.only(
-                                bottomLeft: widget.radius != null
-                                    ? widget.radius
-                                    : Radius.circular(8.0),
-                                bottomRight: widget.radius != null
-                                    ? widget.radius
-                                    : Radius.circular(8.0)))
+                                bottomLeft: widget.radius,
+                                bottomRight: widget.radius))
                         : null,
                   ),
                   padding: EdgeInsets.all(widget.indicatorBgPadding),
