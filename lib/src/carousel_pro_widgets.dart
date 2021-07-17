@@ -25,7 +25,7 @@ class WidgetCarousel extends StatefulWidget {
   final Color dotColor;
 
   // The background Color of the dots. Default is [Colors.grey[800].withOpacity(0.5)]
-  final Color dotBgColor;
+  final Color? dotBgColor;
 
   // Enable or Disable the indicator (dots). Default is true
   final bool showIndicator;
@@ -64,7 +64,7 @@ class WidgetCarousel extends StatefulWidget {
   final Duration autoplayDuration;
 
   WidgetCarousel(
-      {this.pages,
+      {required this.pages,
       this.animationCurve = Curves.ease,
       this.animationDuration = const Duration(milliseconds: 300),
       this.dotSize = 8.0,
@@ -76,21 +76,14 @@ class WidgetCarousel extends StatefulWidget {
       this.indicatorBgPadding = 20.0,
       this.boxFit = BoxFit.cover,
       this.borderRadius = false,
-      this.radius,
+      this.radius = const Radius.circular(8.0),
       this.moveIndicatorFromBottom = 0.0,
       this.noRadiusForIndicator = false,
       this.overlayShadow = false,
-      this.overlayShadowColors,
+      required this.overlayShadowColors,
       this.overlayShadowSize = 0.5,
       this.autoplay = true,
-      this.autoplayDuration = const Duration(seconds: 3)})
-      : assert(pages != null),
-        assert(animationCurve != null),
-        assert(animationDuration != null),
-        assert(dotSize != null),
-        assert(dotSpacing != null),
-        assert(dotIncreaseSize != null),
-        assert(dotColor != null);
+      this.autoplayDuration = const Duration(seconds: 3)});
 
   @override
   State createState() => WidgetCarouselState();
@@ -149,18 +142,14 @@ class WidgetCarouselState extends State<WidgetCarousel> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: widget.dotBgColor == null
-                        ? Colors.grey[800].withOpacity(0.5)
+                        ? Colors.grey[800]!.withOpacity(0.5)
                         : widget.dotBgColor,
                     borderRadius: widget.borderRadius
                         ? (widget.noRadiusForIndicator
                             ? null
                             : BorderRadius.only(
-                                bottomLeft: widget.radius != null
-                                    ? widget.radius
-                                    : Radius.circular(8.0),
-                                bottomRight: widget.radius != null
-                                    ? widget.radius
-                                    : Radius.circular(8.0)))
+                                bottomLeft: widget.radius ,
+                                bottomRight: widget.radius))
                         : null,
                   ),
                   padding: EdgeInsets.all(widget.indicatorBgPadding),
@@ -192,13 +181,13 @@ class WidgetCarouselState extends State<WidgetCarousel> {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
-      this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
-      this.dotSpacing})
+      {required this.controller,
+      required this.itemCount,
+      required this.onPageSelected,
+      required this.color,
+      required this.dotSize,
+      required this.dotIncreaseSize,
+      required this.dotSpacing})
       : super(listenable: controller);
 
   // The PageController that this DotsIndicator is representing.
