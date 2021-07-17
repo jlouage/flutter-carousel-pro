@@ -5,7 +5,7 @@ author: JLouage (Julien Louage) <info@jlouage.com>
 homepage: https://github.com/jlouage/flutter-carousel-pro
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.2.0 <2.0.0"
 
 dependencies:
