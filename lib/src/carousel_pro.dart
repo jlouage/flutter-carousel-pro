@@ -129,7 +129,7 @@ class Carousel extends StatefulWidget {
 }
 
 class CarouselState extends State<Carousel> {
-  late Timer timer;
+  Timer? timer;
   int _currentImageIndex = 0;
   PageController _controller = PageController();
 
@@ -161,7 +161,7 @@ class CarouselState extends State<Carousel> {
   @override
   void dispose() {
     _controller.dispose();
-    timer.cancel();
+    timer!.cancel();
     super.dispose();
   }
 
