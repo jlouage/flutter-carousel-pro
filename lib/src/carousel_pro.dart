@@ -161,7 +161,7 @@ class CarouselState extends State<Carousel> {
   @override
   void dispose() {
     _controller.dispose();
-    timer!.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
