@@ -4,28 +4,28 @@ import 'dart:async';
 
 class WidgetCarousel extends StatefulWidget {
   //All the pages on this Carousel.
-  final List pages;
+  final List? pages;
 
   //The transition animation timing curve. Default is [Curves.ease]
-  final Curve animationCurve;
+  final Curve? animationCurve;
 
   //The transition animation duration. Default is 300ms.
-  final Duration animationDuration;
+  final Duration? animationDuration;
 
   // The base size of the dots. Default is 8.0
-  final double dotSize;
+  final double? dotSize;
 
   // The increase in the size of the selected dot. Default is 2.0
-  final double dotIncreaseSize;
+  final double? dotIncreaseSize;
 
   // The distance between the center of each dot. Default is 25.0
-  final double dotSpacing;
+  final double? dotSpacing;
 
   // The Color of each dot. Default is Colors.white
-  final Color dotColor;
+  final Color? dotColor;
 
   // The background Color of the dots. Default is [Colors.grey[800].withOpacity(0.5)]
-  final Color dotBgColor;
+  final Color? dotBgColor;
 
   // Enable or Disable the indicator (dots). Default is true
   final bool showIndicator;
@@ -40,7 +40,7 @@ class WidgetCarousel extends StatefulWidget {
   final bool borderRadius;
 
   //Border Radius of the images. Default is [Radius.circular(8.0)]
-  final Radius radius;
+  final Radius? radius;
 
   //Move the Indicator From the Bottom
   final double moveIndicatorFromBottom;
@@ -52,7 +52,7 @@ class WidgetCarousel extends StatefulWidget {
   final bool overlayShadow;
 
   //Choose the color of the overlay Shadow color. Default Colors.grey[800]
-  final Color overlayShadowColors;
+  final Color? overlayShadowColors;
 
   //Choose the size of the Overlay Shadow, from 0.0 to 1.0. Default 0.5
   final double overlayShadowSize;
@@ -105,15 +105,16 @@ class WidgetCarouselState extends State<WidgetCarousel> {
 
     if (widget.autoplay) {
       Timer.periodic(widget.autoplayDuration, (_) {
-        if (_controller.page == widget.pages.length - 1) {
+        if (_controller.page == widget.pages!.length - 1) {
           _controller.animateToPage(
             0,
-            duration: widget.animationDuration,
-            curve: widget.animationCurve,
+            duration: widget.animationDuration!,
+            curve: widget.animationCurve!,
           );
         } else {
           _controller.nextPage(
-              duration: widget.animationDuration, curve: widget.animationCurve);
+              duration: widget.animationDuration!,
+              curve: widget.animationCurve!);
         }
       });
     }
@@ -126,7 +127,7 @@ class WidgetCarouselState extends State<WidgetCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listPages = widget.pages
+    final List<Widget> listPages = widget.pages!
         .map((widget) => Container(
               child: widget,
             ))
@@ -149,17 +150,17 @@ class WidgetCarouselState extends State<WidgetCarousel> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: widget.dotBgColor == null
-                        ? Colors.grey[800].withOpacity(0.5)
+                        ? Colors.grey[800]!.withOpacity(0.5)
                         : widget.dotBgColor,
                     borderRadius: widget.borderRadius
                         ? (widget.noRadiusForIndicator
                             ? null
                             : BorderRadius.only(
                                 bottomLeft: widget.radius != null
-                                    ? widget.radius
+                                    ? widget.radius!
                                     : Radius.circular(8.0),
                                 bottomRight: widget.radius != null
-                                    ? widget.radius
+                                    ? widget.radius!
                                     : Radius.circular(8.0)))
                         : null,
                   ),
@@ -168,15 +169,15 @@ class WidgetCarouselState extends State<WidgetCarousel> {
                     child: DotsIndicator(
                       controller: _controller,
                       itemCount: listPages.length,
-                      color: widget.dotColor,
-                      dotSize: widget.dotSize,
-                      dotSpacing: widget.dotSpacing,
-                      dotIncreaseSize: widget.dotIncreaseSize,
+                      color: widget.dotColor!,
+                      dotSize: widget.dotSize!,
+                      dotSpacing: widget.dotSpacing!,
+                      dotIncreaseSize: widget.dotIncreaseSize!,
                       onPageSelected: (int page) {
                         _controller.animateToPage(
                           page,
-                          duration: widget.animationDuration,
-                          curve: widget.animationCurve,
+                          duration: widget.animationDuration!,
+                          curve: widget.animationCurve!,
                         );
                       },
                     ),
@@ -192,12 +193,12 @@ class WidgetCarouselState extends State<WidgetCarousel> {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
+      {required this.controller,
+      required this.itemCount,
+      required this.onPageSelected,
       this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
+      this.dotSize = 0,
+      this.dotIncreaseSize = 0,
       this.dotSpacing})
       : super(listenable: controller);
 
@@ -211,7 +212,7 @@ class DotsIndicator extends AnimatedWidget {
   final ValueChanged<int> onPageSelected;
 
   // The color of the dots.
-  final Color color;
+  final Color? color;
 
   // The base size of the dots
   final double dotSize;
@@ -220,7 +221,7 @@ class DotsIndicator extends AnimatedWidget {
   final double dotIncreaseSize;
 
   // The distance between the center of each dot
-  final double dotSpacing;
+  final double? dotSpacing;
 
   Widget _buildDot(int index) {
     double selectedness = Curves.easeOut.transform(
